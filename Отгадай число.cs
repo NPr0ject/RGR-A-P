@@ -6,10 +6,6 @@ using System.Linq;
 using System.Threading;
 class Programm
 {
-    /*int Multiplication(int a)
-    {
-
-    }*/
     static void Main()
     {
         int N = Convert.ToInt32(Console.ReadLine());
