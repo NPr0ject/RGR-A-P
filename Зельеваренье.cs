@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.Eventing.Reader;
+using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Threading;
@@ -8,47 +9,40 @@ class ProgrammZylie
     public static string Zaklinanye(string[] S, int StartLine)
     {
         string Line = "";
-        
-        string[] Singr = S[StartLine - 1].Split(' ');//сплитованный
-            for (int i = 1; i < Singr.Length; i++)
-            {
+
+        string[] Singr = S[StartLine - 1].Split(' ');
+        for (int i = 1; i < Singr.Length; i++)
+        {
             if (int.TryParse(Singr[i], out int number) == true)
             {
                 Line += Zaklinanye(S, number);
             }
-            else {
+            else
+            {
                 Line += Singr[i];
             }
-            }
-            if (Singr[0] == "DUST")
-            {
-                Line = "DT" + Line + "TD";//исключение для dust
-                //Line = S[0][0] + S[0][3] + Line + S[0][3] + S[0][0]; // чисто что бы не было кучи if
-            }
-            else if ( Singr[0] != "DUST")
-            {
-                Line = Convert.ToString(Singr[0][0]) + Convert.ToString(Singr[0][2]) + Line + Convert.ToString(Singr[0][2]) + Convert.ToString(Singr[0][0]); // чисто что бы не было кучи if
-            }
+        }
+        if (Singr[0] == "DUST")
+        {
+            Line = "DT" + Line + "TD";//исключение для dust
+        }
+        else if (Singr[0] != "DUST")
+        {
+            Line = Convert.ToString(Singr[0][0]) + Convert.ToString(Singr[0][2]) + Line 
+                + Convert.ToString(Singr[0][2]) + Convert.ToString(Singr[0][0]);
+        }
         return Line;
-    }//я иду
-    // int.TryParse булевый метод возвращающий true если строка число
+    }
     static void Main()
     {
-        string[] ingr = new string[101];
+        string[] ingr = new string[102];
         int count = 0;
-        //string[] Singr = new string[100]; // ингридиенты
-        while ( (ingr[count] = Console.ReadLine()) != "") // не должно быть пустых строк
+        while ((ingr[count] = Console.ReadLine()) != "")
         {
             count++;
         }
-        for(int i = 0; i < ingr.Length; i++)
-        {
-            if(ingr[i] == null)
-            {
-                count = i - 1;
-                Console.WriteLine(Zaklinanye(ingr, i - 1));
-                break;
-            }
-        }
+        Console.WriteLine(Zaklinanye(ingr, count));     
+    }
+}
     }
 }
